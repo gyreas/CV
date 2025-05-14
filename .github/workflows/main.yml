@@ -34,7 +34,6 @@ jobs:
           typst compile --format pdf main.typ $pdfname
           ls -hl
 
-      - uses: actions/checkout@v4
       - name: Upload the documents to my website
         run: |
           ls -hl
