@@ -4,7 +4,7 @@ pdfname  := name + ".pdf"
 htmlname := name + ".html"
 
 upload: compile-pdf
-	gh repo clone '{{website}}'
+	gh repo clone 'https://github.com/gyreas/{{website}}'
 
 	cp {{pdfname}} '{{website}}/assets/{{pdfname}}'
 
