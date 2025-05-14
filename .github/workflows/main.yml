@@ -16,4 +16,4 @@ jobs:
           mkdir ~/bin
           curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin
           pwd
-          ~/bin/just
+          ~/bin/just --justfile Justfile
