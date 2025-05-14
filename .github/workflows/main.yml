@@ -33,14 +33,22 @@ jobs:
           cd $CV_DIR
           typst compile --format pdf main.typ $pdfname
 
+      - uses: actions/checkout@v4
       - name: Upload the documents to my website
         run: |
           ls -hl
           tree
           cp --verbose "$CV_DIR/$pdfname" "$WEBSITE_DIR/assets"
+          
           cd $WEBSITE_DIR
+          
+          date > generated.txt
+          # Note: the following account information will not work on GHES
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
           git add "assets/$pdfname"
-          git commit -m "updated CV [pdf]" "assets/$pdfname"
+          git commit -m "updated CV .pdf: [bot-$(date)]" "assets/$pdfname"
           git push
                  
     env:
