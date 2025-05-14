@@ -9,15 +9,25 @@ jobs:
     runs-on: ubuntu-22.04
     name: "Generate .pdf/.html CVs"
     steps:
-      - name: Checkout code
+      - name: Checkout the CV sources
         uses: actions/checkout@v4
+        with:
+          path: main
 
-      - name: generate the documents
+      - name: Checkout the website sources
+        uses: actions/checkout@v4
+        with:
+          repository: gyreas/gyreas.github.io
+          path: website
+
+      - name: generate
         run: |
-          gh auth login --hostname github.com
           sudo apt install gh git; sudo snap install typst
           mkdir ~/bin; curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin
-          echo "PWD=" $PWD; echo "GITHUB_TOKEN=$GITHUB_TOKEN"; ~/bin/just --justfile Justfile
+          echo "PWD=" $PWD; ls -hl tree;
+  
         env:
+          CV_DIR: "main/"
+          WEBSITE_DIR: "website/"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
