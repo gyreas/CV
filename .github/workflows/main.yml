@@ -19,15 +19,20 @@ jobs:
         with:
           repository: gyreas/gyreas.github.io
           path: website
-
-      - name: generate
+ 
+      - name: Install deps
         run: |
-          sudo apt install gh git
           sudo snap install typst
+          
           echo "PWD="$PWD
           ls -hl
           tree
-          
+         
+      - name: Compile .pdf document
+        run: |
+          cd $CV_DIR
+          typst compile --format pdf main.typ $pdfname
+
       - name: Upload the documents to my website
         run: |
           cp --verbose "$CV_DIR/assets/$pdfname" "$WEBSITE_DIR"
@@ -35,12 +40,7 @@ jobs:
           git add "assets/$pdfname"
           git commit -m "updated CV [pdf]" "assets/$pdfname"
           git push
-         
-      - name: Compile .pdf document
-        run: |
-          cd $CV_DIR
-          typst compile --format pdf main.typ $pdfname
-
+                 
     env:
       pdfname: "$DOC_BASENAME.pdf"
       DOC_BASENAME: "Saheed-Adeleye"
