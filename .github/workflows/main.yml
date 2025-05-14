@@ -11,5 +11,8 @@ jobs:
     steps:
       - name: "generate via just"
         run: |
-          sudo apt install just typst gh git
-          just
+          sudo apt install gh git
+          sudo snap install typst
+          mkdir ~/bin
+          curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin
+          ~/bin/just
