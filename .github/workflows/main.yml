@@ -15,5 +15,5 @@ jobs:
           sudo snap install typst
           mkdir ~/bin
           curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin
-          pwd
-          echo "PWD=" $PWD; ls -hl ../; ~/bin/just --justfile Justfile
+          gh repo clone gyreas/CV
+          echo "PWD=" $PWD; ls -hl; ~/bin/just --justfile Justfile
