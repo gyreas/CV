@@ -24,7 +24,7 @@ jobs:
         run: |
           sudo apt install gh git; sudo snap install typst
           mkdir ~/bin; curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin
-          echo "PWD=" $PWD; ls -hl tree;
+          echo "PWD=" $PWD; ls -hl; tree;
   
         env:
           CV_DIR: "main/"
