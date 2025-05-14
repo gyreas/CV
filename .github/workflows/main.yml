@@ -22,13 +22,29 @@ jobs:
 
       - name: generate
         run: |
-          sudo apt install gh git; sudo snap install typst
-          mkdir ~/bin; curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin
-          echo "PWD=" $PWD; ls -hl; tree;
-          ~/bin/just --justfile Justfile
-  
-        env:
-          CV_DIR: "main/"
-          WEBSITE_DIR: "website/"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          sudo apt install gh git
+          sudo snap install typst
+          echo "PWD="$PWD
+          ls -hl
+          tree
+          
+      - name: Upload the documents to my website
+        run: |
+          cp --verbose "$CV_DIR/assets/$pdfname" "$WEBSITE_DIR"
+          cd $WEBSITE_DIR
+          git add "assets/$pdfname"
+          git commit -m "updated CV [pdf]" "assets/$pdfname"
+          git push
+         
+      - name: Compile .pdf document
+        run: |
+          cd $CV_DIR
+          typst compile --format pdf main.typ $pdfname
+
+    env:
+      pdfname: "$DOC_BASENAME.pdf"
+      DOC_BASENAME: "Saheed-Adeleye"
+      CV_DIR: "main/"
+      WEBSITE_DIR: "website/"
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
