@@ -9,13 +9,13 @@ jobs:
     runs-on: ubuntu-22.04
     name: "Generate .pdf/.html CVs"
     steps:
-      - name: "generate via just"
+      - name: Checkout code
+        uses: actions/checkout@v4
         run: |
           sudo apt install gh git
           sudo snap install typst
           mkdir ~/bin
           curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin
-          gh repo clone https://github.com/gyreas/CV
-          cd /home/runner/work/CV; echo "PWD=" $PWD; ls -hl; ~/bin/just --justfile Justfile
-        env:
-          GH_TOKEN: ${{ github.token }}
+          echo "PWD=" $PWD; ls -hl; ~/bin/just --justfile Justfile
+        # env:
+        #   GH_TOKEN: ${{ github.token }}
