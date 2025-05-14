@@ -1,0 +1,15 @@
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  
+jobs:
+  generate_cvs:
+    runs-on: ubuntu-22.04
+    name: "Generate .pdf/.html CVs"
+    steps:
+      - name: "generate via just"
+        run: |
+          apt install just typst gh git
+          just
