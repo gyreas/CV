@@ -18,4 +18,5 @@ jobs:
           mkdir ~/bin; curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin
           echo "PWD=" $PWD; echo "GITHUB_TOKEN=$GITHUB_TOKEN"; ~/bin/just --justfile Justfile
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
