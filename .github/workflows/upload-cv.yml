@@ -1,0 +1,35 @@
+name: Generate CV and trigger deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build_and_dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: main
+
+      - name: Install typst
+        run: sudo snap install typst
+
+      - name: Build PDF
+        run: |
+          cd main
+          typst compile --format pdf main.typ Saheed-Adeleye.pdf
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: saheed-cv
+          path: main/Saheed-Adeleye.pdf
+
+      - name: Trigger Website Workflow
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          repository: gyreas/gyreas.github.io
+          event-type: update-cv
