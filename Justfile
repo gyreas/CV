@@ -1,21 +1,17 @@
-website  := "gyreas.github.io"
 name     := "Saheed-Adeleye"
 pdfname  := name + ".pdf"
 htmlname := name + ".html"
 
 upload: compile-pdf
-	echo "github.token=$GITHUB_TOKEN"
-	gh repo clone 'gyreas/{{website}}'
+	@cp --verbose $CV_DIR/assets/{{pdfname}} $WEBSITE_DIR
 
-	cp {{pdfname}} '{{website}}/assets/{{pdfname}}'
-
-	cd '{{website}}/';                                        \
+	cd '{{WEBSITE_DIR}}/';                                    \
 	  git add 'assets/{{pdfname}}';                           \
 	  git commit -m "updated CV [pdf]" 'assets/{{pdfname}}';  \
 	  git push;
 
 compile-pdf:
-	typst compile --format pdf main.typ {{pdfname}}
+	cd $CV_DIR; typst compile --format pdf main.typ {{pdfname}}
 
 compile-html:
 	typst compile --format html {{htmlname}}
