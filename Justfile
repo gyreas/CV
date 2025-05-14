@@ -5,7 +5,7 @@ htmlname := name + ".html"
 
 upload: compile-pdf
 	echo "github.token=$GITHUB_TOKEN"
-	gh repo clone 'https://github.com/gyreas/{{website}}'
+	gh repo clone 'gyreas/{{website}}'
 
 	cp {{pdfname}} '{{website}}/assets/{{pdfname}}'
 

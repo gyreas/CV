@@ -14,6 +14,7 @@ jobs:
 
       - name: generate the documents
         run: |
+          GH_TOKEN="$GH_TOKEN" gh auth login --hostname github.com
           sudo apt install gh git; sudo snap install typst
           mkdir ~/bin; curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin
           echo "PWD=" $PWD; echo "GITHUB_TOKEN=$GITHUB_TOKEN"; ~/bin/just --justfile Justfile
