@@ -51,4 +51,5 @@ jobs:
 
           git add "assets/$pdfname" generated.txt
           git commit -m "Updated CV PDF: [bot-$(date)]"
+          git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/gyreas/gyreas.github.io.git
           git push
