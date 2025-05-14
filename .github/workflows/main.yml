@@ -35,7 +35,9 @@ jobs:
 
       - name: Upload the documents to my website
         run: |
-          cp --verbose "$CV_DIR/assets/$pdfname" "$WEBSITE_DIR"
+          ls -hl
+          tree
+          cp --verbose "$CV_DIR/$pdfname" "$WEBSITE_DIR/assets"
           cd $WEBSITE_DIR
           git add "assets/$pdfname"
           git commit -m "updated CV [pdf]" "assets/$pdfname"
@@ -44,7 +46,7 @@ jobs:
     env:
       pdfname: "$DOC_BASENAME.pdf"
       DOC_BASENAME: "Saheed-Adeleye"
-      CV_DIR: "main/"
-      WEBSITE_DIR: "website/"
+      CV_DIR: "main"
+      WEBSITE_DIR: "website"
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
