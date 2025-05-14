@@ -11,5 +11,5 @@ jobs:
     steps:
       - name: "generate via just"
         run: |
-          apt install just typst gh git
+          sudo apt install just typst gh git
           just
